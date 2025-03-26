@@ -28,9 +28,9 @@ In main.py, the main_experiment function is a function that executes the experim
 Here, we give noise to the base material (YBa2Cu3O7) to create 4096 initial values, and optimize them simultaneously. The optimization is performed in two stages: first, the composition is optimized without converting composition ratios into integers, and then the composition is optimized with a special loss to convert compositional ratios into integers. The results are output to the results4inverse directory.
 
 ## Output files
-In the results4inverse directory, the optimization results of the base material are output. The main output is a csv file that outputs the results of the 4096 samples optimized. The npz file is an intermediate file for constructing the csv. The overview of each column is as follows.
+In the `results4inverse` directory, the optimization results are output. The main output is a csv file that outputs the results of the 4096 samples optimized. The npz file is an intermediate file for constructing the csv. The overview of each column is as follows.
 - Initial Optimized Composition: Result of composition optimization (first stage)
-- Rounded Optimized Composition: Composition formula after further optimization using the loss converting composition ratios into integers above (second stage optimization)
+- Rounded Optimized Composition: Composition formula after further optimization using the loss converting composition ratios into integers (second stage optimization)
 - Rounded Optimized Tc: Predicted Tc after second stage optimization
 - Initial Optimized Tc: Predicted Tc after first stage optimization
 - Rounded Optimized Ef: Predicted formation energy after second stage optimization
