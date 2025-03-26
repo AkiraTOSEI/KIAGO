@@ -1,0 +1,377 @@
+[
+    {
+        "elems": "['Ba', 'Ca', 'Cu', 'Hg', 'O']",
+        "comp": "[2.0, 2.0, 3.0, 1.0, 8.0]",
+        "sc_type": "CuO-SC",
+        "ox_states": [
+            2,
+            1,
+            3,
+            1,
+            -2
+        ],
+        "sustitute_target": "Hg",
+        "substitution_ox_state": 1,
+        "val_of_atom": 1.0,
+        "remain_atom_dict": "{'Ba': 2.0, 'Ca': 2.0, 'Cu': 3.0, 'O': 8.0}",
+        "target_metal_common_ox_states": [
+            1,
+            2
+        ],
+        "Tc": 127.44552612304688,
+        "Original_Tc": 132.5,
+        "Counts": 110,
+        "num_atoms": 16.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "Ba": 0.125,
+            "Ca": 0.125,
+            "Cu": 0.1875,
+            "O": 0.5
+        },
+        "norm_val_of_atom": 0.0625,
+        "ES_max_tc_atom_dict": {
+            "Ba": "2.00000",
+            "Ca": "2.00000",
+            "Cu": "3.00000",
+            "Hg": "0.70000",
+            "O": "8.00000",
+            "Tl": "0.30000"
+        },
+        "ES_max_tc": 133.4141387939453,
+        "ES_num": 55,
+        "SameElem_max_TC": 127.44552612304688,
+        "SameElem_median_TC": 127.44552612304688
+    },
+    {
+        "elems": "['Bi', 'Cu', 'O', 'Sr']",
+        "comp": "[2.0, 1.0, 6.0, 2.0]",
+        "sc_type": "CuO-SC",
+        "ox_states": [
+            3,
+            2,
+            -2,
+            2
+        ],
+        "sustitute_target": "Sr",
+        "substitution_ox_state": 2,
+        "val_of_atom": 2.0,
+        "remain_atom_dict": "{'Bi': 2.0, 'Cu': 1.0, 'O': 6.0}",
+        "target_metal_common_ox_states": [
+            2
+        ],
+        "Tc": 8.586715698242188,
+        "Original_Tc": 8.0,
+        "Counts": 23,
+        "num_atoms": 11.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "Bi": 0.18181818181818182,
+            "Cu": 0.09090909090909091,
+            "O": 0.5454545454545454
+        },
+        "norm_val_of_atom": 0.18181818181818182,
+        "ES_max_tc_atom_dict": {
+            "Ba": "1.80000",
+            "Bi": "2.00000",
+            "Cu": "1.00000",
+            "O": "6.00000",
+            "Pb": "0.20000"
+        },
+        "ES_max_tc": 42.63517761230469,
+        "ES_num": 35,
+        "SameElem_max_TC": 91.88131713867188,
+        "SameElem_median_TC": 8.586715698242188
+    },
+    {
+        "elems": "['Ca', 'Cu', 'O', 'Sr', 'Tl']",
+        "comp": "[1.0, 2.0, 7.0, 2.0, 1.0]",
+        "sc_type": "CuO-SC",
+        "ox_states": [
+            1,
+            4,
+            -2,
+            2,
+            1
+        ],
+        "sustitute_target": "Sr",
+        "substitution_ox_state": 2,
+        "val_of_atom": 2.0,
+        "remain_atom_dict": "{'Ca': 1.0, 'Cu': 2.0, 'O': 7.0, 'Tl': 1.0}",
+        "target_metal_common_ox_states": [
+            2
+        ],
+        "Tc": 63.60453796386719,
+        "Original_Tc": 51.8,
+        "Counts": 10,
+        "num_atoms": 13.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "Ca": 0.07692307692307693,
+            "Cu": 0.15384615384615385,
+            "O": 0.5384615384615384,
+            "Tl": 0.07692307692307693
+        },
+        "norm_val_of_atom": 0.15384615384615385,
+        "ES_max_tc_atom_dict": {
+            "Ca": "1.00000",
+            "Cu": "2.00000",
+            "Nd": "0.50000",
+            "O": "7.00000",
+            "Sr": "1.50000",
+            "Tl": "1.00000"
+        },
+        "ES_max_tc": 87.7168197631836,
+        "ES_num": 34,
+        "SameElem_max_TC": 63.60453796386719,
+        "SameElem_median_TC": 63.60453796386719
+    },
+    {
+        "elems": "['As', 'Fe', 'O', 'Sr', 'V']",
+        "comp": "[2.0, 2.0, 6.0, 4.0, 2.0]",
+        "sc_type": "Fe-SC",
+        "ox_states": [
+            -3,
+            -2,
+            -1,
+            2,
+            4
+        ],
+        "sustitute_target": "Sr",
+        "substitution_ox_state": 2,
+        "val_of_atom": 4.0,
+        "remain_atom_dict": "{'As': 2.0, 'Fe': 2.0, 'O': 6.0, 'V': 2.0}",
+        "target_metal_common_ox_states": [
+            2
+        ],
+        "Tc": 31.19202995300293,
+        "Original_Tc": 31.5,
+        "Counts": 60,
+        "num_atoms": 16.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "As": 0.125,
+            "Fe": 0.125,
+            "O": 0.375,
+            "V": 0.125
+        },
+        "norm_val_of_atom": 0.25,
+        "ES_max_tc_atom_dict": {
+            "As": "1.00000",
+            "Ca": "0.20000",
+            "Fe": "1.00000",
+            "O": "3.00000",
+            "Sr": "1.80000",
+            "V": "1.00000"
+        },
+        "ES_max_tc": 35.23560333251953,
+        "ES_num": 11,
+        "SameElem_max_TC": 31.19202995300293,
+        "SameElem_median_TC": 31.19202995300293
+    },
+    {
+        "elems": "['Bi', 'Ca', 'Cu', 'Fe', 'O', 'Sr']",
+        "comp": "[2.0, 1.0, 1.98, 0.02, 8.0, 2.0]",
+        "sc_type": "Fe-SC",
+        "ox_states": [
+            3,
+            2,
+            2,
+            2,
+            -2,
+            2
+        ],
+        "sustitute_target": "Sr",
+        "substitution_ox_state": 2,
+        "val_of_atom": 2.0,
+        "remain_atom_dict": "{'Bi': 2.0, 'Ca': 1.0, 'Cu': 1.98, 'Fe': 0.02, 'O': 8.0}",
+        "target_metal_common_ox_states": [
+            2
+        ],
+        "Tc": 76.48249053955078,
+        "Original_Tc": 71.5,
+        "Counts": 26,
+        "num_atoms": 15.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "Bi": 0.13333333333333333,
+            "Ca": 0.06666666666666667,
+            "Cu": 0.132,
+            "Fe": 0.0013333333333333333,
+            "O": 0.5333333333333333
+        },
+        "norm_val_of_atom": 0.13333333333333333,
+        "ES_max_tc_atom_dict": {
+            "Bi": "2.00000",
+            "Ca": "1.00000",
+            "Cu": "1.99400",
+            "Fe": "0.00600",
+            "O": "8.00000",
+            "Sr": "2.00000"
+        },
+        "ES_max_tc": 80.59832000732422,
+        "ES_num": 5,
+        "SameElem_max_TC": 80.59832000732422,
+        "SameElem_median_TC": 76.48249053955078
+    },
+    {
+        "elems": "['As', 'Fe', 'Ni', 'Sr']",
+        "comp": "[2.0, 1.88, 0.12, 1.0]",
+        "sc_type": "Fe-SC",
+        "ox_states": [
+            -3,
+            2,
+            2,
+            2
+        ],
+        "sustitute_target": "Sr",
+        "substitution_ox_state": 2,
+        "val_of_atom": 1.0,
+        "remain_atom_dict": "{'As': 2.0, 'Fe': 1.88, 'Ni': 0.12}",
+        "target_metal_common_ox_states": [
+            2
+        ],
+        "Tc": 6.798215389251709,
+        "Original_Tc": 3.74,
+        "Counts": 7,
+        "num_atoms": 5.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "As": 0.4,
+            "Fe": 0.376,
+            "Ni": 0.024
+        },
+        "norm_val_of_atom": 0.2,
+        "ES_max_tc_atom_dict": {
+            "As": "4.00000",
+            "Eu": "1.00000",
+            "Fe": "3.76000",
+            "Ni": "0.24000",
+            "Rb": "1.00000"
+        },
+        "ES_max_tc": 19.68170928955078,
+        "ES_num": 5,
+        "SameElem_max_TC": 9.233930587768555,
+        "SameElem_median_TC": 6.798215389251709
+    },
+    {
+        "elems": "['Bi', 'Ce', 'O', 'S']",
+        "comp": "[1.0, 1.0, 1.0, 2.0]",
+        "sc_type": "Others",
+        "ox_states": [
+            3,
+            3,
+            -2,
+            -2
+        ],
+        "sustitute_target": "Ce",
+        "substitution_ox_state": 3,
+        "val_of_atom": 1.0,
+        "remain_atom_dict": "{'Bi': 1.0, 'O': 1.0, 'S': 2.0}",
+        "target_metal_common_ox_states": [
+            3,
+            4
+        ],
+        "Tc": 2.091587543487549,
+        "Original_Tc": 1.3,
+        "Counts": 15,
+        "num_atoms": 5.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "Bi": 0.2,
+            "O": 0.2,
+            "S": 0.4
+        },
+        "norm_val_of_atom": 0.2,
+        "ES_max_tc_atom_dict": {
+            "Bi": "1.00000",
+            "La": "0.85000",
+            "O": "1.00000",
+            "S": "2.00000",
+            "Th": "0.15000"
+        },
+        "ES_max_tc": 2.6166656017303467,
+        "ES_num": 21,
+        "SameElem_max_TC": 2.091587543487549,
+        "SameElem_median_TC": 2.091587543487549
+    },
+    {
+        "elems": "['B', 'C', 'La', 'Pt']",
+        "comp": "[2.0, 1.0, 1.0, 2.0]",
+        "sc_type": "Others",
+        "ox_states": [
+            1,
+            -3,
+            3,
+            -1
+        ],
+        "sustitute_target": "La",
+        "substitution_ox_state": 3,
+        "val_of_atom": 1.0,
+        "remain_atom_dict": "{'B': 2.0, 'C': 1.0, 'Pt': 2.0}",
+        "target_metal_common_ox_states": [
+            3
+        ],
+        "Tc": 7.898499488830566,
+        "Original_Tc": 10.0,
+        "Counts": 10,
+        "num_atoms": 6.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "B": 0.3333333333333333,
+            "C": 0.16666666666666666,
+            "Pt": 0.3333333333333333
+        },
+        "norm_val_of_atom": 0.16666666666666666,
+        "ES_max_tc_atom_dict": {
+            "B": "2.00000",
+            "C": "1.00000",
+            "Pt": "2.00000",
+            "Y": "1.00000"
+        },
+        "ES_max_tc": 10.895062446594238,
+        "ES_num": 9,
+        "SameElem_max_TC": 7.898499488830566,
+        "SameElem_median_TC": 7.898499488830566
+    },
+    {
+        "elems": "['As', 'La', 'Ni', 'O']",
+        "comp": "[1.0, 1.0, 1.0, 1.0]",
+        "sc_type": "Others",
+        "ox_states": [
+            -3,
+            3,
+            1,
+            -1
+        ],
+        "sustitute_target": "La",
+        "substitution_ox_state": 3,
+        "val_of_atom": 1.0,
+        "remain_atom_dict": "{'As': 1.0, 'Ni': 1.0, 'O': 1.0}",
+        "target_metal_common_ox_states": [
+            3
+        ],
+        "Tc": 3.669147491455078,
+        "Original_Tc": 2.75,
+        "Counts": 8,
+        "num_atoms": 4.0,
+        "is_integer": true,
+        "norm_remain_atom_dict": {
+            "As": 0.25,
+            "Ni": 0.25,
+            "O": 0.25
+        },
+        "norm_val_of_atom": 0.25,
+        "ES_max_tc_atom_dict": {
+            "As": "1.00000",
+            "La": "0.90000",
+            "Ni": "1.00000",
+            "O": "1.00000",
+            "Sr": "0.10000"
+        },
+        "ES_max_tc": 3.8192174434661865,
+        "ES_num": 6,
+        "SameElem_max_TC": 3.669147491455078,
+        "SameElem_median_TC": 3.669147491455078
+    }
+]
