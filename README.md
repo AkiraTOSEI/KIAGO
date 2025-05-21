@@ -54,7 +54,7 @@ python main.py
 ```
 ### Overview of the main script
 In main.py, the main_experiment function is a function that executes the experiment, and in InverseOpt4PeriodicTable function, hyperparameters are reflected, and then optimization of the inverse problem is performed by InvModule4PeriodicTable instance.
-Here, we give noise to the base material (YBa2Cu3O7) to create 4096 initial values, and optimize them simultaneously. The optimization is performed in two stages: first, the composition is optimized without integerization, and then the composition is optimized with a special loss to convert compositional ratios into integers. The results are output to the results4inverse directory.
+Here, we give noise to the base material (YBa2Cu3O7) to create 4096 initial values, and optimize them simultaneously. The optimization is performed in two stages: first, the composition is optimized without converting composition ratios into integers, and then the composition is optimized with a special loss to convert compositional ratios into integers. The results are output to the results4inverse directory.
 
 ## Output files
 In the `results4inverse` directory, the optimization results of the base material are output. The main output is a csv file that outputs the results of the 4096 samples optimized. The npz file is an intermediate file for constructing the csv. The overview of each column is as follows.
