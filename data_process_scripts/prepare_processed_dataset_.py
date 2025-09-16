@@ -146,54 +146,6 @@ from typing import Dict, List, Tuple
 import numpy as np
 
 
-def atom_names_to_numbers(
-    atom_names: List[str], stoichiometry: List[int], VALID_ELEMENTS: List[str]
-) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    This function converts atom names and their stoichiometry into numerical representations.
-
-    Args:
-        atom_names (List[str]): A list of atomic names represented as strings.
-        stoichiometry (List[int]): A list of atomic stoichiometric coefficients represented as integers.
-        VALID_ELEMENTS (List[str]): A list of valid atomic elements. Used for indexing atomic names.
-
-    Returns:
-        Tuple[np.ndarray, np.ndarray]: A tuple of two numpy arrays. The first array represents the atomic presence,
-        where each position in the array corresponds to an element in 'VALID_ELEMENTS', and a value of 1 signifies
-        the presence of that element in 'atom_names'. The second array represents the stoichiometric counts, where
-        each position in the array corresponds to an element in 'VALID_ELEMENTS', and the value is the
-        stoichiometric count for that element from 'stoichiometry'.
-
-    Raises:
-        IndexError: If an element from 'atom_names' is not found in 'VALID_ELEMENTS'.
-
-    Example:
-        atom_names = ["H", "O"]
-        stoichiometry = [2, 1]
-        VALID_ELEMENTS = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne"]
-        atom_names_to_numbers(atom_names, stoichiometry, VALID_ELEMENTS)
-        # Output: (array([1, 0, 0, 0, 0, 0, 0, 1, 0, 0]), array([2, 0, 0, 0, 0, 0, 0, 1, 0, 0]))
-    """
-    atomic_vector = np.zeros(len(VALID_ELEMENTS))
-    stoich_vector = np.zeros(len(VALID_ELEMENTS))
-    for atom, number in zip(atom_names, stoichiometry):
-        assert atom in VALID_ELEMENTS, f"Element {atom} not found in VALID_ELEMENTS."
-        atomic_number = VALID_ELEMENTS.index(atom)
-        atomic_vector[atomic_number] = 1
-        stoich_vector[atomic_number] = number
-
-    if not np.sum(stoich_vector) >= 1.0:
-        nan_vec = np.zeros(len(VALID_ELEMENTS)) * np.nan
-        return nan_vec, nan_vec
-    return atomic_vector, stoich_vector
-
-
-# # 超伝導データの処理
-# - 重複したデータがあるかを確かめるためのset、実際のデータにわける
-
-# In[13]:
-
-
 import ast
 
 
