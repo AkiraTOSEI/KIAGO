@@ -631,7 +631,7 @@ def smact_etc_analysis(
     delta_tc = (
         result_df.loc[result_df["all_True_bools"]]["pred_Tc"] - base_pred_Tc
     ).values
-    delat_tc = np.sort(delta_tc)[::-1]
+    delta_tc = np.sort(delta_tc)[::-1]
     summary_dict["ΔTc_top10"] = np.mean(delta_tc[:10])
     summary_dict["ΔTc_top30"] = np.mean(delta_tc[:30])
     summary_dict["ΔTc_top50"] = np.mean(delta_tc[:50])
