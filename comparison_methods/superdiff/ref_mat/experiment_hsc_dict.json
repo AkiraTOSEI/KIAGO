@@ -1,0 +1,32 @@
+[
+    {
+        "elems": "['H', 'Pd']",
+        "comp": "[1.0, 1.0]",
+        "sc_type": "Others"
+    },
+    {
+        "elems": "['H', 'Pt']",
+        "comp": "[1.0, 1.0]",
+        "sc_type": "Others"
+    },
+    {
+        "elems": "['H', 'Th']",
+        "comp": "[15.0, 4.0]",
+        "sc_type": "Others"
+    },
+    {
+        "elems": "['H', 'S']",
+        "comp": "[2.0, 1.0]",
+        "sc_type": "Others"
+    },
+    {
+        "elems": "['H', 'La']",
+        "comp": "[10.0, 1.0]",
+        "sc_type": "Others"
+    },
+    {
+        "elems": "['H', 'Si']",
+        "comp": "[4.0, 1.0]",
+        "sc_type": "Others"
+    }
+]
