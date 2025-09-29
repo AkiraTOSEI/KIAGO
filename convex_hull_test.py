@@ -928,8 +928,9 @@ def calculate_convex_hull_with_elemnet(
     assert recollect in [False, True], "recollect must be False or True"
 
     relax_result_db_path = Path(
-        "/home/afujii/awesome_material_project/data/intermidiate/convex_hull/relax_results.json"
+        "./data/intermidiate/convex_hull/relax_results.json"
     )
+    os.makedirs(str(relax_result_db_path.parent), exist_ok=True)
     saved_path = relax_result_db_path.parent / Path(
         f"relax_results_{chemsys_by_atomic_number(CHEMSYS)}.json.gz"
     )
@@ -1018,7 +1019,7 @@ proposed_materials = [
 
 # In[62]:
 
-API_KEY = "e2UzOOWs3I6YIZgPX8VGcfzFkLboyDf1"  # Add your API_KEY for materials project!
+API_KEY = None  # Add your API_KEY for materials project!
 if API_KEY is None:
     raise Exception("Add your API_KEY for materials project!")
 
