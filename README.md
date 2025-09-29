@@ -12,11 +12,11 @@ For detailed information, please refer to our paper:
 [A Straightforward Gradient-Based Approach for High-Tc Superconductor Design: Leveraging Domain Knowledge via Adaptive Constraints](https://arxiv.org/abs/2403.13627)
 
 ## Prerequisites
-We use PyTorch 2.4.1 and Pytorch-Lightning 1.9.5 for the implementation. Download pre-trained models and other files from the following link.
+Download pre-trained models and other files from the following link.
 https://drive.google.com/drive/folders/1WBcDbxnqJiP2eZz0AuQ1m5lMbWnSMdSw?usp=sharing
 
 Place pretrained models (`baseline_surrogate.pt` and `elemnet.pth`) in the `models/surrogate_model` directory.
-Place periodic table representation (`AtomMap-base.npy`) and preprocessed dataset (`random-0.05-0.15-balancing.npz`) in the `data/processed/` directory.
+Place periodic table representation (`AtomMap-base.npy`) and preprocessed dataset (`random-0.05-0.15-balancing.npz`) in the `./` directory.
 
 
 ## Requirements
