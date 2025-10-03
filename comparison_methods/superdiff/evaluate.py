@@ -17,6 +17,8 @@ import pandas as pd
 import torch
 from torch import nn
 
+from .superdiff_guidance import define_elemnet_mask
+
 
 def parse_architecture(architecture_str):
     """
@@ -1593,7 +1595,8 @@ def smact_etc_analysis(
             ],
             dim=1,
         ).float()
-        all_atom_vector_for_ef = normed_all_atom_vector[:, :86].float()
+        elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
+        all_atom_vector_for_ef = normed_all_atom_vector[:, elemnet_mask].float()
         with torch.no_grad():
             all_tc = (
                 (sg_model(all_atom_vector_for_tc.view(-1, 118, 1, 1, 1).to("cuda")))
@@ -1609,8 +1612,8 @@ def smact_etc_analysis(
                 .numpy()
                 .flatten()
             )
-        ## ElemNet適用のため86番目以降の要素がすべて0のものを取得
-        all_atom_vector = all_atom_vector[all_atom_vector[:, 86:].sum(dim=1) == 0.0]
+        ## ElemNet適用のため112番目以降の要素がすべて0のものを取得
+        all_atom_vector = all_atom_vector[all_atom_vector[:, 112:].sum(dim=1) == 0.0]
         ## 得られたベクトルを元に、SMACTのチェックを行うための文字列にする
         original_df = pd.DataFrame(
             Atom_vec2string_converter().vector2string(
@@ -1677,7 +1680,11 @@ def smact_etc_analysis(
         .numpy()
         .flatten()
     )
-    normalized_pred_Ef = elemnet(atom_vectors[:, :86]).detach().cpu().numpy().flatten()
+    elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
+
+    normalized_pred_Ef = (
+        elemnet(atom_vectors[:, elemnet_mask]).detach().cpu().numpy().flatten()
+    )
 
     result_df_dict = {
         "formula": unique_df.composition_for_smact_check.values,

@@ -1854,11 +1854,105 @@ def Phi1D(vectors, scale_factor, device):
     return output_vector
 
 
+def define_elemnet_mask() -> torch.Tensor:
+    elemnet_atom_ids = [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+    ]
+    elemnet_mask = torch.zeros(118).view(1, 118)
+    elemnet_mask[:, elemnet_atom_ids] = 1.0
+    return elemnet_mask
+
+
 def calculate_tc_ef_loss(vectors, sg_model, elemnet, ef_strength, return_loss=True):
     # ここから Classifier guidance
-    ### ElemNetの制限により、86原子までのベクトルを使う
+    ### ElemNetの制限により、112原子までのベクトルを使う
     vectors4eval = vectors.clone()
-    vectors4eval[:, :, 86:] = 0
+    vectors4eval[:, :, 112:] = 0
     ### 0以上のclipする
     vectors4eval = torch.clip(vectors4eval, min=0)
     ### 合計1に規格化し、float32に変換
@@ -1869,9 +1963,10 @@ def calculate_tc_ef_loss(vectors, sg_model, elemnet, ef_strength, return_loss=Tr
     normed_atom_vectors_for_tc_pred = torch.cat(
         (normed_atom_vectors, dummy_vector), dim=1
     )
-    ### ElemNet用に、0で埋めたベクトルを入れて、shape: [B, 86]へと削減する
+    ### ElemNet用のマスクでshape: [B, 86]へと削減する
+    elemnet_mask = define_elemnet_mask().to(device).squeeze().to(torch.bool)
     normed_atom_vectors_for_elemnet = normed_atom_vectors[
-        :, :86
+        :, elemnet_mask
     ]  # 学習データ自体を整形する方向でいきたい
     ### 各モデルでの予測
     tc_pred = sg_model(normed_atom_vectors_for_tc_pred)
@@ -1894,7 +1989,7 @@ def record_tc_ef_history(vectors, sg_model, elemnet, tc_history, ef_history):
         # ここから Classifier guidance
         ### ElemNetの制限により、86原子までのベクトルを使う
         vectors4eval = vectors.clone()
-        vectors4eval[:, :, 86:] = 0
+        vectors4eval[:, :, 112] = 0
         ### 0以上のclipする
         vectors4eval = torch.clip(vectors4eval, min=0)
         ### 合計1に規格化し、float32に変換
@@ -1907,9 +2002,10 @@ def record_tc_ef_history(vectors, sg_model, elemnet, tc_history, ef_history):
         normed_atom_vectors_for_tc_pred = torch.cat(
             (normed_atom_vectors, dummy_vector), dim=1
         )
-        ### ElemNet用に、0で埋めたベクトルを入れて、shape: [B, 86]へと削減する
+        ### ElemNet用のマスクでshape: [B, 86]へと削減する
+        elemnet_mask = define_elemnet_mask().to(device).squeeze().to(torch.bool)
         normed_atom_vectors_for_elemnet = normed_atom_vectors[
-            :, :86
+            :, elemnet_mask
         ]  # 学習データ自体を整形する方向でいきたい
         ### 各モデルでの予測
         tc_pred = sg_model(normed_atom_vectors_for_tc_pred)

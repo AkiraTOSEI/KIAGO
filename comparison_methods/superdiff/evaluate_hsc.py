@@ -18,6 +18,8 @@ import pandas as pd
 import torch
 from torch import nn
 
+from .superdiff_guidance import define_elemnet_mask
+
 
 def parse_architecture(architecture_str):
     """
@@ -1200,8 +1202,9 @@ def smact_etc_analysis_for_HSC(
         .numpy()
         .flatten()
     )
+    elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
     unique_df["pred_ef"] = (
-        elemnet(atom_vectors[:, :86]).detach().cpu().numpy().flatten()
+        elemnet(atom_vectors[:, elemnet_mask]).detach().cpu().numpy().flatten()
     )
     # 水素の含有量と原子数の制約を満たしているかをチェック
     hydro_checker = check_hydrogen_ratio(hydrogen_thres).check
