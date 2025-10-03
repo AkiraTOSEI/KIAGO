@@ -17,6 +17,7 @@ from pymatgen.core.composition import Composition
 from smact.screening import pauling_test
 from tqdm.notebook import tqdm
 
+from .inverse_pl_module import define_elemnet_mask
 from .utils import (
     create_atomic_vectors_from_formula_dict,
     define_atom_list,
@@ -553,7 +554,11 @@ def smact_etc_analysis(
         .numpy()
         .flatten()
     )
-    normalized_pred_Ef = elemnet(atom_vectors[:, :86]).detach().cpu().numpy().flatten()
+    elemnet_mask = define_elemnet_mask()
+    elemnet_mask = elemnet_mask.squeeze().to(torch.bool)
+    normalized_pred_Ef = (
+        elemnet(atom_vectors[:, elemnet_mask]).detach().cpu().numpy().flatten()
+    )
 
     result_df_dict = {
         "formula": unique_df.composition_for_smact_check.values,
@@ -654,8 +659,11 @@ from itertools import product
 
 # oxidation_statesのN個の組み合わせを求める
 def possible_sum_oxidaion_states_of_N_of_Element(N, elem):
-    oxidation_states = smact.Element(elem).oxidation_states
-    if len(oxidation_states) == 0:
+    # to-list normalization; treat None as []
+    ox = smact.Element(elem).oxidation_states
+    oxidation_states = list(ox) if ox is not None else []
+    # if no oxidation states or N <= 0, nothing to combine
+    if N <= 0 or len(oxidation_states) == 0:
         return []
     return list(
         set(np.sum(np.array(list(product(oxidation_states, repeat=N))), axis=1))
@@ -798,8 +806,10 @@ def smact_etc_analysis_for_HSC(
         .numpy()
         .flatten()
     )
+    elemnet_mask = define_elemnet_mask()
+    elemnet_mask = elemnet_mask.squeeze().to(torch.bool)
     unique_df["pred_ef"] = (
-        elemnet(atom_vectors[:, :86]).detach().cpu().numpy().flatten()
+        elemnet(atom_vectors[:, elemnet_mask]).detach().cpu().numpy().flatten()
     )
     # 水素の含有量と原子数の制約を満たしているかをチェック
     hydro_checker = check_hydrogen_ratio(hydrogen_thres).check

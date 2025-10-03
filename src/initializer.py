@@ -396,7 +396,9 @@ def generate_reference_based_candidates(cfg: DictConfig, batch_size: int, test: 
 
     ## Extract atomic distribution from the training data
     dataset_name = cfg.dataset.dataset_name.replace(".npz", "")
-    data_path = os.path.join(cfg.general.master_dir, cfg.dataset.dataset_name)
+    data_path = os.path.join(
+        cfg.general.master_dir, cfg.general.processed_data_dir, cfg.dataset.dataset_name
+    )
     x_train, _ = load_training_data(data_path)
     atom_prob = atom_distribution_from_train(x_train)
     ## mutate and perturb the data

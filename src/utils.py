@@ -247,7 +247,7 @@ def create_oxidation_elem_dict() -> dict:
     """
     # create oxidation_dict
     oxidation_dict = {}
-    for e_i, elem in enumerate(define_atom_list()[:86]):
+    for e_i, elem in enumerate(define_atom_list()[:112]):
         try:
             oxidation_states = smact.Element(elem).oxidation_states
         except NameError:

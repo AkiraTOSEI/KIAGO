@@ -5,7 +5,7 @@ def default_config() -> DictConfig:
     config = {
         "general": {
             "master_dir": "",
-            "processed_data_dir": "./",
+            "processed_data_dir": "./data/processed",
             "type_of_atoms": 118,
             "deep_speed": None,  # None or "deepspeed_stage_2"
         },

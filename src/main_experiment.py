@@ -3,7 +3,8 @@ import os
 import shutil
 from typing import Optional
 
-from .config import default_config
+from src.config import default_config
+
 from .eval import smact_etc_analysis, smact_etc_analysis_for_HSC
 from .inv_opt import InverseOpt4PeriodicTable
 from .utils import (

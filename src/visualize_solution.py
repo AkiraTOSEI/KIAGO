@@ -8,7 +8,7 @@ from IPython.display import Math, display
 from omegaconf import DictConfig
 from tqdm import tqdm
 
-from .inverse_pl_module import InvModule4PeriodicTable
+from .inverse_pl_module import InvModule4PeriodicTable, define_elemnet_mask
 from .utils import define_atom_list
 
 
@@ -225,10 +225,11 @@ def display_optimized_solutions(
         .view(-1, 118, 1, 1, 1)
         .clone()
     )
+    elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
     rounded_optimized_ef = iv_model.elemnet(
         torch.tensor(rounded_optimized_solution / structure_atom_count.view(-1, 1))
         .view(-1, 118)
-        .clone()[:, :86]
+        .clone()[:, elemnet_mask]
     )
     atomic_strings_round = Atom_vec2string_converter().vector2string(
         rounded_optimized_solution
