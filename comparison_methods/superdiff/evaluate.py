@@ -17,7 +17,99 @@ import pandas as pd
 import torch
 from torch import nn
 
-from .superdiff_guidance import define_elemnet_mask
+
+def define_elemnet_mask() -> torch.Tensor:
+    elemnet_atom_ids = [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+    ]
+    elemnet_mask = torch.zeros(118).view(1, 118)
+    elemnet_mask[:, elemnet_atom_ids] = 1.0
+    return elemnet_mask
 
 
 def parse_architecture(architecture_str):
@@ -375,7 +467,8 @@ def Read_AtomMap(cfg: DictConfig):
 import pytorch_lightning as pl
 import torch
 from omegaconf import DictConfig
-from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
+
+# from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from torch.nn import functional as F
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
@@ -493,17 +586,6 @@ class LitModel(pl.LightningModule):
         elif self.opti_method == "Adam-CA":
             optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
             scheduler = CosineAnnealingLR(optimizer, T_max=self.trainer.max_epochs * 2)
-            self.use_sheduler = True
-            return [optimizer], [scheduler]
-
-        elif self.opti_method == "Adam-LWCA":
-            optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
-            scheduler = LinearWarmupCosineAnnealingLR(
-                optimizer,
-                warmup_epochs=10,
-                warmup_start_lr=1e-10,
-                max_epochs=self.trainer.max_epochs * 2,
-            )
             self.use_sheduler = True
             return [optimizer], [scheduler]
 
@@ -1596,7 +1678,9 @@ def smact_etc_analysis(
             dim=1,
         ).float()
         elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
-        all_atom_vector_for_ef = normed_all_atom_vector[:, elemnet_mask].float()
+        all_atom_vector_for_ef = normed_all_atom_vector[
+            :, elemnet_mask[: normed_all_atom_vector.shape[1]]
+        ].float()
         with torch.no_grad():
             all_tc = (
                 (sg_model(all_atom_vector_for_tc.view(-1, 118, 1, 1, 1).to("cuda")))
@@ -1683,7 +1767,11 @@ def smact_etc_analysis(
     elemnet_mask = define_elemnet_mask().squeeze().to(torch.bool)
 
     normalized_pred_Ef = (
-        elemnet(atom_vectors[:, elemnet_mask]).detach().cpu().numpy().flatten()
+        elemnet(atom_vectors[:, elemnet_mask[: atom_vectors.shape[1]]])
+        .detach()
+        .cpu()
+        .numpy()
+        .flatten()
     )
 
     result_df_dict = {
@@ -2063,7 +2151,7 @@ def search_best_threshold(total_generated_output, sg_model, element_table):
             best_top30_tc_prediction_value = top30_tc_prediction_value
             best_threshold = threshold
             best_tc_predictions = tc_values
-        print(f"threshold: {threshold}, Top30の平均値: {top30_tc_prediction_value}")
+        print(f"threshold: {threshold}, Top30　average: {top30_tc_prediction_value}")
     print(
         f"best_threshold: {best_threshold}, best_top30_tc_prediction_value: {best_top30_tc_prediction_value}"
     )

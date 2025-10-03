@@ -1966,7 +1966,7 @@ def calculate_tc_ef_loss(vectors, sg_model, elemnet, ef_strength, return_loss=Tr
     ### ElemNet用のマスクでshape: [B, 86]へと削減する
     elemnet_mask = define_elemnet_mask().to(device).squeeze().to(torch.bool)
     normed_atom_vectors_for_elemnet = normed_atom_vectors[
-        :, elemnet_mask
+        :, elemnet_mask[: normed_atom_vectors.shape[1]]
     ]  # 学習データ自体を整形する方向でいきたい
     ### 各モデルでの予測
     tc_pred = sg_model(normed_atom_vectors_for_tc_pred)
@@ -2005,7 +2005,7 @@ def record_tc_ef_history(vectors, sg_model, elemnet, tc_history, ef_history):
         ### ElemNet用のマスクでshape: [B, 86]へと削減する
         elemnet_mask = define_elemnet_mask().to(device).squeeze().to(torch.bool)
         normed_atom_vectors_for_elemnet = normed_atom_vectors[
-            :, elemnet_mask
+            :, elemnet_mask[: normed_atom_vectors.shape[1]]
         ]  # 学習データ自体を整形する方向でいきたい
         ### 各モデルでの予測
         tc_pred = sg_model(normed_atom_vectors_for_tc_pred)
@@ -2022,6 +2022,8 @@ Sr2RuO4
 """
 import ast
 import json
+
+from tqdm.auto import tqdm
 
 # Diffusion modelによる推論のハイパーパラメータ
 
@@ -2097,13 +2099,24 @@ def DiffusionInference(
     print(
         f"Sampling {int(len(scale_factors) * NUM_SAMPLE_PER_FACTOR)} samples for {int(len(reference_set))} references."
     )
-    for i in range(int(len(reference_set))):
+    for i in tqdm(
+        range(int(len(reference_set))), total=len(reference_set), desc="Reference loop"
+    ):
         scale_factor_generated_output = torch.empty((0,)).to(device)
-        for j in range(int(len(scale_factors))):
+        for j in tqdm(
+            range(int(len(scale_factors))),
+            total=len(scale_factors),
+            desc="Scale factor loop",
+            leave=False,
+        ):
             vectors = torch.randn(
                 NUM_SAMPLE_PER_FACTOR, 1, diffusion_model.sequence_length
             ).to(device)
-            for k in reversed(range(diffusion_model.timesteps)):
+            for k in tqdm(
+                reversed(range(diffusion_model.timesteps)),
+                total=diffusion_model.timesteps,
+                desc="Diffusion steps",
+            ):
                 t = torch.full((1,), k, dtype=torch.long, device=device)
 
                 """
