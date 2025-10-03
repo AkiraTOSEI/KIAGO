@@ -93,8 +93,8 @@ def InverseOpt4PeriodicTable(cfg: DictConfig, test_mode: bool = False):
         # gradient_clip_val=cfg.inverse_problem.method_parameters.grad_clip,
         callbacks=[ForwardModelFreezeCallback(), lr_monitor],
         precision=precision,
-        strategy=strategy,
-        enable_progress_bar="notebooks" in os.getcwd(),
+        # strategy=strategy,
+        # enable_progress_bar="notebooks" in os.getcwd(),
     )
     trainer.fit(iv_model, datamodule=datamodule)
 

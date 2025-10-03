@@ -13,10 +13,10 @@ from torch.nn.parameter import Parameter as Parameter
 from torch.optim import lr_scheduler
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
-from .elemnet import ElemNet
-from .initializer import initialize_solution_candidates
-from .loss import IntegerLoss
-from .periodic_table import PeriodicTableSurrogateModel
+from src.elemnet import ElemNet
+from src.initializer import initialize_solution_candidates
+from src.loss import IntegerLoss
+from src.periodic_table import PeriodicTableSurrogateModel
 
 
 class InvModule4PeriodicTable(pl.LightningModule):
@@ -51,9 +51,97 @@ class InvModule4PeriodicTable(pl.LightningModule):
         )
         self.elemnet.eval()
         self.ef_loss_coef = cfg.inverse_problem.loss.formation_energy_loss_coef
-        ## Mask the atoms after the 86th atom. This is to match the specifications of ElemNet.
-        self.elemnet_mask = torch.ones(118).view(1, 118)
-        self.elemnet_mask[:, 86:] = 0
+        ## Mask the atoms only used in ElemNet.
+        self.elemnet_atom_ids = [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+        ]
+        self.elemnet_mask = torch.zeros(118).view(1, 118)
+        self.elemnet_mask[:, self.elemnet_atom_ids] = 1.0
 
         self.type_of_atoms = cfg.general.type_of_atoms
         if self.cfg.inverse_problem.method == "NA":
@@ -182,8 +270,13 @@ class InvModule4PeriodicTable(pl.LightningModule):
     def calculate_ef(self, x):
         if self.elemnet.training:
             self.elemnet.eval()
+
         return (
-            self.elemnet(self.preprocess_x(x)[:, :86].squeeze())
+            self.elemnet(
+                self.preprocess_x(x)[
+                    :, self.elemnet_mask.squeeze().to(torch.bool)
+                ].squeeze()
+            )
             .squeeze()
             .detach()
             .cpu()
@@ -317,7 +410,9 @@ class InvModule4PeriodicTable(pl.LightningModule):
         if self.cfg.inverse_problem.method == "NA":
             x = self.preprocess_x(self.learnable_tensor)
             y_tc_hat = self.sg_model(x)
-            y_ef_hat = self.elemnet(x[:, :86].squeeze())
+            y_ef_hat = self.elemnet(
+                x[:, self.elemnet_mask.squeeze().to(torch.bool)].squeeze()
+            )
             loss_each, metrics, tc_loss_each, ef_loss = self.loss_func(
                 x, y_tc_hat, y_tc_gt, y_ef_hat, "none"
             )
