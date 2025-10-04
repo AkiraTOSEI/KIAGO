@@ -245,7 +245,7 @@ elemnet = ElemNet(
 )
 elemnet.load_state_dict(
     torch.load(
-        "/home/afujii/awesome_material_project/models/surrogate_model/elemnet.pth"
+        "../..//models/surrogate_model/elemnet.pth"
     )
 )
 elemnet.eval()
